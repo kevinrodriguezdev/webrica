@@ -1,23 +1,614 @@
 ---
 import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Projects from '../components/Projects.astro';
-import Services from '../components/Services.astro';
-import Process from '../components/Process.astro';
-import About from '../components/About.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
+
+const EMAIL = 'kevinrodriguezdev@gmail.com';
+
+const work = [
+  {
+    id: 'genesis',
+    name: 'Génesis',
+    client: 'Propuesta de rediseño para God’s Time, marca de relojes.',
+    text: 'Una landing para el cronógrafo Génesis en la que el reloj se desmonta pieza a pieza mientras bajas: cristal de zafiro, esfera, calibre y tapa grabada. Cada pieza aparece con su explicación y, al final, el reloj vuelve a montarse.',
+    points: ['Animación ligada al scroll, sin librerías externas', 'Diseño editorial en negro y oro', 'Adaptada a móvil y a quien prefiere menos movimiento'],
+    main: { src: 'genesis-calibre', alt: 'Génesis a mitad de la animación: el calibre a la vista con anotaciones sobre sus piezas' },
+    second: { src: 'genesis-despiece', alt: 'Génesis durante el despiece: la esfera se separa y deja ver el movimiento' },
+    phone: { src: 'genesis-calibre-movil', alt: 'La animación de Génesis en un móvil' },
+  },
+  {
+    id: 'panda',
+    name: '3DPanda',
+    client: 'Catálogo para un taller de impresión 3D por encargo.',
+    text: 'Una web para enseñar cada pieza y convertir la visita en un pedido. El catálogo se ordena por categorías, cada producto tiene su ficha y el pedido sale por WhatsApp con el mensaje ya escrito.',
+    points: ['Filtro por categorías y una página para cada una', 'Pedido por WhatsApp desde cada producto', 'Fotos optimizadas solas al publicar'],
+    main: { src: 'panda-hero', alt: 'Portada de 3DPanda con figuras impresas en 3D' },
+    second: { src: 'panda-catalogo', alt: 'Catálogo de 3DPanda con filtros por categoría' },
+    phone: { src: 'panda-movil', alt: 'Portada de 3DPanda en un móvil' },
+  },
+];
+
+const services = [
+  { name: 'Landing pages', text: 'Una página para un producto o una campaña, con un único objetivo: que quien llega compre, reserve o te escriba.' },
+  { name: 'Catálogos de producto', text: 'Tu producto ordenado por categorías, con una ficha para cada pieza y un camino corto hasta el pedido.' },
+  { name: 'Webs de marca con animación', text: 'Para marcas que necesitan impresionar: animaciones ligadas al scroll, fotografía grande y un diseño que no se confunde con otro.' },
+];
+
+const steps = [
+  { name: 'Hablamos', text: 'Nos cuentas qué vendes y qué esperas de la web. Te enviamos una propuesta con plazo y precio.' },
+  { name: 'Diseñamos', text: 'Preparamos el diseño de las páginas clave y lo ajustamos contigo antes de programar.' },
+  { name: 'Programamos', text: 'Construimos la web, la adaptamos a móvil y te la enseñamos funcionando en un enlace privado.' },
+  { name: 'Publicamos', text: 'La ponemos en marcha con tu dominio y te enseñamos a actualizar lo que necesites.' },
+];
+
+const needs = ['Una landing page', 'Un catálogo de producto', 'Una web de marca con animación', 'Rediseñar mi web actual', 'Todavía no lo sé'];
+
+const shot = (name: string) => ({
+  src: `/shots/${name}-1440.webp`,
+  srcset: `/shots/${name}-800.webp 800w, /shots/${name}-1440.webp 1440w`,
+});
 ---
 <Base>
-  <Header />
+  <header class="hero">
+    <nav class="bar wrap" aria-label="Principal">
+      <a href="/" class="logo" aria-label="Webrica, inicio">webrica</a>
+      <div class="bar__links">
+        <a href="#trabajos">Trabajos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto" class="bar__cta">Escríbenos</a>
+      </div>
+    </nav>
+
+    <div class="wrap hero__body">
+      <h1 class="hero__title">
+        <span>Webs fabricadas</span>
+        <span>a medida.</span>
+      </h1>
+      <div class="hero__foot">
+        <p>Diseñamos y programamos webs para marcas y negocios: landing pages, catálogos de producto y webs con animación. Cada una, desde cero.</p>
+        <div class="hero__actions">
+          <a href="#contacto" class="btn">Pedir presupuesto</a>
+          <a href="#trabajos" class="textlink">Ver trabajos</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <main id="main">
-    <Hero />
-    <Projects />
-    <Services />
-    <Process />
-    <About />
-    <Contact />
+    <div class="shelf wrap" aria-hidden="true">
+      <div class="shot shelf__a"><img {...shot('genesis-hero')} sizes="(min-width: 900px) 62vw, 90vw" width="1440" height="900" alt="" fetchpriority="high" /></div>
+      <div class="shot shelf__b"><img {...shot('panda-hero')} sizes="(min-width: 900px) 36vw, 60vw" width="1440" height="900" alt="" /></div>
+    </div>
+
+    <section id="trabajos" class="work wrap" aria-labelledby="work-t">
+      <h2 id="work-t" class="section-title">Trabajos recientes</h2>
+
+      {
+        work.map((p) => (
+          <article class="case" aria-labelledby={`${p.id}-t`}>
+            <div class="case__media">
+              <div class="shot case__main">
+                <img {...shot(p.main.src)} sizes="(min-width: 900px) 64vw, 92vw" width="1440" height="900" alt={p.main.alt} loading="lazy" />
+              </div>
+              <div class="case__side">
+                <div class="shot">
+                  <img {...shot(p.second.src)} sizes="(min-width: 900px) 30vw, 60vw" width="1440" height="900" alt={p.second.alt} loading="lazy" />
+                </div>
+                <div class="shot case__phone">
+                  <img src={`/shots/${p.phone.src}-600.webp`} width="600" height="1299" alt={p.phone.alt} loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <div class="case__text">
+              <div>
+                <h3 id={`${p.id}-t`}>{p.name}</h3>
+                <p class="case__client">{p.client}</p>
+              </div>
+              <div>
+                <p>{p.text}</p>
+                <ul>
+                  {p.points.map((pt) => <li>{pt}</li>)}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </section>
+
+    <section id="servicios" class="services" aria-labelledby="services-t">
+      <div class="wrap">
+        <h2 id="services-t" class="section-title">Qué fabricamos</h2>
+        <dl class="services__list">
+          {
+            services.map((s) => (
+              <div>
+                <dt>{s.name}</dt>
+                <dd>{s.text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="services__all">En todas: diseño propio, versión móvil cuidada, carga rápida, SEO básico y publicación incluida.</p>
+      </div>
+    </section>
+
+    <section class="process wrap" aria-labelledby="process-t">
+      <h2 id="process-t" class="section-title">Cómo trabajamos</h2>
+      <ol class="steps">
+        {
+          steps.map((s) => (
+            <li>
+              <h3>{s.name}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section id="contacto" class="contact" aria-labelledby="contact-t">
+      <div class="wrap contact__grid">
+        <div>
+          <h2 id="contact-t">Cuéntanos qué necesitas.</h2>
+          <p class="contact__lede">Te respondemos con ideas y un presupuesto sin compromiso. Si lo prefieres, escríbenos directamente:</p>
+          <a class="contact__mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        </div>
+
+        <form id="contact-form" class="form" data-email={EMAIL} novalidate>
+          <label>
+            <span>Nombre</span>
+            <input name="name" type="text" autocomplete="name" required />
+          </label>
+          <label>
+            <span>Tu email</span>
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span>Negocio (opcional)</span>
+            <input name="company" type="text" autocomplete="organization" />
+          </label>
+          <label>
+            <span>Qué necesitas</span>
+            <select name="type">
+              {needs.map((n) => <option>{n}</option>)}
+            </select>
+          </label>
+          <label class="full">
+            <span>Tu idea</span>
+            <textarea name="message" rows="5" required placeholder="Qué vende tu negocio, qué quieres conseguir con la web y para cuándo la necesitas."></textarea>
+          </label>
+          <div class="full form__foot">
+            <button type="submit" class="btn">Abrir en mi correo</button>
+            <p id="f-status" role="status">Se abrirá tu aplicación de correo con el mensaje listo para enviar.</p>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
-  <Footer />
+
+  <footer class="foot wrap">
+    <span class="logo">webrica</span>
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    <span>© 2026 Webrica</span>
+  </footer>
 </Base>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('f-status');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const get = (k: string) => String(data.get(k) ?? '').trim();
+    const name = get('name'), email = get('email'), msg = get('message'), company = get('company'), type = get('type');
+
+    let firstBad: HTMLElement | null = null;
+    for (const [k, ok] of [['name', !!name], ['email', /^\S+@\S+\.\S+$/.test(email)], ['message', !!msg]] as const) {
+      const el = form.elements.namedItem(k) as HTMLElement;
+      el.setAttribute('aria-invalid', String(!ok));
+      if (!ok && !firstBad) firstBad = el;
+    }
+    if (firstBad) {
+      firstBad.focus();
+      if (status) {
+        status.textContent = 'Falta algo: escribe tu nombre, un email válido y tu idea.';
+        status.classList.add('err');
+      }
+      return;
+    }
+
+    const subject = `Nueva web: ${type}${company ? ` para ${company}` : ''}`;
+    const body = [`Hola, soy ${name}${company ? ` de ${company}` : ''}.`, '', `Necesito: ${type}`, '', msg, '', `Mi email: ${email}`].join('\n');
+    location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (status) {
+      status.textContent = `Abriendo tu correo. Si no se abre, escríbenos a ${form.dataset.email}.`;
+      status.classList.remove('err');
+    }
+  });
+</script>
+
+<style>
+  /* ---------- hero: cobalt field, expanded type ---------- */
+  .hero {
+    background: var(--cobalt);
+    color: #fff;
+    padding-bottom: clamp(9rem, 22vw, 20rem);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.6rem;
+  }
+  .logo {
+    font-weight: 800;
+    font-variation-settings: 'wdth' 125;
+    font-size: 1.5rem;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+  .bar__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.25rem);
+    font-weight: 500;
+  }
+  .bar__links a {
+    text-decoration: none;
+  }
+  .bar__links a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+  .bar__cta {
+    padding: 0.55rem 1.1rem;
+    border: 2px solid #fff;
+    border-radius: 999px;
+  }
+  .bar__links .bar__cta:hover {
+    background: #fff;
+    color: var(--cobalt);
+    text-decoration: none;
+  }
+
+  .hero__body {
+    padding-top: clamp(3rem, 9vw, 7.5rem);
+  }
+  .hero__title {
+    font-size: clamp(3rem, 10.5vw, 9.6rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+  }
+  .hero__title span {
+    display: block;
+    animation: rise 0.9s var(--ease) both;
+  }
+  .hero__title span + span {
+    animation-delay: 0.12s;
+  }
+  .hero__foot {
+    display: grid;
+    gap: 2rem;
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+    animation: rise 0.9s 0.25s var(--ease) both;
+  }
+  .hero__foot p {
+    max-width: 34rem;
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    line-height: 1.5;
+    color: #dfe4ff;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2rem;
+  }
+
+  /* ---------- shelf: the work straddles the cobalt edge ---------- */
+  .shelf {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    align-items: end;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    margin-top: calc(-1 * clamp(7rem, 19vw, 17rem));
+  }
+  .shelf .shot {
+    animation: rise 1s 0.35s var(--ease) both;
+  }
+  .shelf__b {
+    margin-bottom: clamp(2rem, 6vw, 5rem);
+    animation-delay: 0.5s !important;
+  }
+  .shelf img {
+    aspect-ratio: 16 / 10;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+  }
+
+  /* ---------- sections ---------- */
+  .section-title {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .work {
+    padding-top: clamp(5rem, 10vw, 9rem);
+  }
+  .case + .case {
+    margin-top: clamp(5rem, 10vw, 8rem);
+  }
+  .case__media {
+    display: grid;
+    grid-template-columns: 1.85fr 1fr;
+    gap: clamp(0.75rem, 1.6vw, 1.25rem);
+    align-items: start;
+  }
+  .case__main img {
+    aspect-ratio: 16 / 10;
+  }
+  .case__side {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(0.75rem, 1.6vw, 1.25rem);
+  }
+  .case__side img {
+    aspect-ratio: 16 / 10;
+  }
+  .case__phone {
+    width: 46%;
+    justify-self: end;
+    border-radius: 18px;
+    border: 5px solid var(--ink);
+  }
+  .case__phone img {
+    aspect-ratio: 390 / 700;
+  }
+  .case__text {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 1.5rem clamp(2rem, 6vw, 6rem);
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .case h3 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+  .case__client {
+    margin-top: 0.75rem;
+    color: var(--ink-2);
+    max-width: 26ch;
+  }
+  .case__text p {
+    max-width: 60ch;
+  }
+  .case__text ul {
+    margin-top: 1.25rem;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .case__text li {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-2);
+  }
+
+  .services {
+    margin-top: clamp(6rem, 12vw, 10rem);
+    padding-block: clamp(5rem, 10vw, 8rem);
+    background: var(--stone);
+  }
+  .services__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem clamp(1.5rem, 4vw, 3.5rem);
+  }
+  .services__list dt {
+    font-size: clamp(1.35rem, 2vw, 1.65rem);
+    font-weight: 800;
+    font-variation-settings: 'wdth' 125;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    padding-top: 1.1rem;
+    border-top: 4px solid var(--cobalt);
+  }
+  .services__list dd {
+    margin-top: 0.9rem;
+    color: var(--ink-2);
+  }
+  .services__all {
+    margin-top: clamp(3rem, 5vw, 4rem);
+    font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+    font-weight: 500;
+    max-width: 42ch;
+  }
+
+  .process {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem clamp(1.25rem, 3vw, 2.5rem);
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  .steps li {
+    counter-increment: step;
+  }
+  .steps li::before {
+    content: counter(step);
+    display: block;
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    font-weight: 900;
+    font-variation-settings: 'wdth' 125;
+    line-height: 1;
+    color: var(--cobalt);
+    margin-bottom: 1rem;
+  }
+  .steps h3 {
+    font-size: 1.35rem;
+    line-height: 1.1;
+  }
+  .steps p {
+    margin-top: 0.6rem;
+    color: var(--ink-2);
+  }
+
+  /* ---------- contact: back to cobalt ---------- */
+  .contact {
+    background: var(--cobalt);
+    color: #fff;
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3rem clamp(3rem, 7vw, 6rem);
+  }
+  .contact h2 {
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+  }
+  .contact__lede {
+    margin-top: 1.5rem;
+    max-width: 30rem;
+    color: #dfe4ff;
+    font-size: 1.15rem;
+  }
+  .contact__mail {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    font-variation-settings: 'wdth' 112;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+    overflow-wrap: anywhere;
+  }
+
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--cobalt-deep);
+    border-radius: 16px;
+  }
+  .form label {
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #dfe4ff;
+  }
+  .full {
+    grid-column: 1 / -1;
+  }
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--signal);
+  }
+  [aria-invalid='true'] {
+    border-color: #ff8a7a;
+  }
+  ::placeholder {
+    color: #8b90a3;
+  }
+  .form__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: 0.25rem;
+  }
+  #f-status {
+    flex: 1 1 14rem;
+    font-size: 0.92rem;
+    color: #c4ccff;
+  }
+  #f-status.err {
+    color: var(--signal);
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-block: 2.5rem;
+    color: var(--ink-2);
+  }
+  .foot .logo {
+    color: var(--ink);
+  }
+
+  /* ---------- narrow screens ---------- */
+  @media (max-width: 900px) {
+    .shelf {
+      grid-template-columns: 1fr 0.62fr;
+    }
+    .case__media,
+    .case__text,
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+    .case__side {
+      grid-template-columns: 1fr 0.42fr;
+      align-items: end;
+    }
+    .case__phone {
+      width: 100%;
+    }
+    .services__list {
+      grid-template-columns: 1fr;
+    }
+    .steps {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .bar__links a:not(.bar__cta) {
+      display: none;
+    }
+    .shelf {
+      grid-template-columns: 1fr;
+    }
+    .shelf__b {
+      display: none;
+    }
+    .form {
+      grid-template-columns: 1fr;
+    }
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

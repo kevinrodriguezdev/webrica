@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Webrica — Webs a medida para negocios con ambición',
-  description = 'Webrica es un estudio de diseño y desarrollo web en España. Landing pages, catálogos de producto y webs de marca con animaciones al scroll, hechas a medida.',
+  title = 'Webrica | Webs fabricadas a medida',
+  description = 'Webrica es un estudio de diseño y desarrollo web. Fabricamos landing pages, catálogos de producto y webs de marca con animación, a medida de cada negocio.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -22,8 +22,7 @@ const ogImage = new URL('/og.png', Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#f2ede3" />
-    <meta name="author" content="Kevin Rodríguez" />
+    <meta name="theme-color" content="#2340e8" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -39,7 +38,7 @@ const ogImage = new URL('/og.png', Astro.site);
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Webrica — Webs a medida para negocios con ambición" />
+    <meta property="og:image:alt" content="Webrica: webs fabricadas a medida" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -47,35 +46,10 @@ const ogImage = new URL('/og.png', Astro.site);
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" />
   </head>
   <body>
     <a class="skip" href="#main">Saltar al contenido</a>
     <slot />
-    <script>
-      // Reveal on scroll (skipped entirely when the user prefers reduced motion).
-      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
-      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduced || !('IntersectionObserver' in window)) {
-        els.forEach((el) => el.classList.add('in'));
-      } else {
-        document.documentElement.classList.add('js-reveal');
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add('in');
-                io.unobserve(e.target);
-              }
-            }
-          },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-        );
-        els.forEach((el) => io.observe(el));
-      }
-    </script>
   </body>
 </html>

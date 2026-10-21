@@ -1,19 +1,37 @@
 ---
 import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
 ---
-<Base title="Página no encontrada — Webrica" description="Esta página no existe.">
-  <Header />
-  <main id="main" class="wrap nf">
-    <p class="label">Error 404</p>
-    <h1>Esta pieza no salió <em>del taller</em>.</h1>
-    <p>La página que buscas no existe o ha cambiado de sitio.</p>
-    <a class="btn btn-primary" href="/">Volver al inicio <span class="arrow" aria-hidden="true">→</span></a>
+<Base title="Página no encontrada | Webrica" description="Esta página no existe.">
+  <main id="main" class="nf">
+    <div class="wrap">
+      <a href="/" class="logo">webrica</a>
+      <h1>Esta página no existe.</h1>
+      <p>Puede que la dirección esté mal escrita o que la página se haya movido.</p>
+      <a class="btn" href="/">Volver al inicio</a>
+    </div>
   </main>
 </Base>
 <style>
-  .nf { min-height: 70vh; display: grid; align-content: center; justify-items: start; gap: 1.5rem; padding-block: 6rem; }
-  h1 { font-size: clamp(2.6rem, 7vw, 5.5rem); max-width: 14ch; }
-  h1 em { color: var(--lacre); }
-  p:not(.label) { color: var(--ink-2); font-size: 1.15rem; }
+  .nf {
+    min-height: 100vh;
+    display: grid;
+    align-content: center;
+    background: var(--cobalt);
+    color: #fff;
+  }
+  .logo {
+    font-weight: 800;
+    font-variation-settings: 'wdth' 125;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+  h1 {
+    margin-top: 3rem;
+    font-size: clamp(2.6rem, 8vw, 6rem);
+  }
+  p {
+    margin: 1.25rem 0 2rem;
+    font-size: 1.15rem;
+    color: #dfe4ff;
+  }
 </style>
