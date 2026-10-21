@@ -1,0 +1,13 @@
+---
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<span class:list={['logo', cls]}>
+  <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="3" fill="currentColor"/><path d="M7 10l3.6 12L14.2 13l1.8 0 3.6 9L23.2 10" fill="none" stroke="var(--logo-bg, #f2ede3)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 25.5c5-1.4 11-1.6 17-.4" fill="none" stroke="#d4542f" stroke-width="1.6" stroke-linecap="round"/></svg>
+  <span class="word">Webrica</span>
+</span>
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .mark { width: 1.75rem; height: 1.75rem; flex: none; }
+  .word { font-family: var(--serif); font-size: 1.45rem; letter-spacing: -0.02em; font-variation-settings: 'opsz' 72; line-height: 1; }
+</style>

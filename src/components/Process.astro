@@ -1,0 +1,37 @@
+---
+const steps = [
+  ['Descubrimiento', 'Hablamos de tu negocio, tu cliente y el objetivo de la web. Revisamos referencias y definimos contenidos y alcance.'],
+  ['Diseño', 'Propuesta visual a medida: estructura, tipografía, color y cómo se comporta en móvil. Ajustamos hasta que encaje.'],
+  ['Desarrollo', 'Construcción con código limpio y moderno, animaciones, optimización de imágenes y SEO básico. Puedes ver avances en una URL de prueba.'],
+  ['Lanzamiento', 'Publicación en Vercel con HTTPS y tu dominio. Revisión final en distintos dispositivos y entrega.'],
+];
+---
+<section id="proceso" class="section process">
+  <div class="wrap">
+    <header class="section-head" data-reveal>
+      <p class="label">03 — Proceso</p>
+      <h2>De la idea a la web, en <em>cuatro</em> pasos.</h2>
+      <p>Un proceso corto y transparente. Sabes en todo momento en qué punto está tu proyecto.</p>
+    </header>
+    <ol class="steps">
+      {steps.map(([t, d], i) => (
+        <li data-reveal style={`--d:${i * 0.1}s`}>
+          <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{t}</h3>
+          <p>{d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+<style>
+  .process { border-top: 1px solid var(--line); }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.5rem; counter-reset: s; }
+  .steps li { position: relative; padding-top: 1.5rem; border-top: 1px solid var(--ink); }
+  .steps li::before { content: ''; position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--lacre); }
+  .idx { font-family: var(--mono); font-size: .8rem; color: var(--ink-3); }
+  .steps h3 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin-top: .75rem; font-style: italic; }
+  .steps p { margin-top: .9rem; color: var(--ink-2); font-size: .98rem; }
+  @media (min-width: 700px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem 2.5rem; } }
+  @media (min-width: 1100px) { .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+</style>

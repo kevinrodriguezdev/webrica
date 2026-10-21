@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+---
+<Base title="Página no encontrada — Webrica" description="Esta página no existe.">
+  <Header />
+  <main id="main" class="wrap nf">
+    <p class="label">Error 404</p>
+    <h1>Esta pieza no salió <em>del taller</em>.</h1>
+    <p>La página que buscas no existe o ha cambiado de sitio.</p>
+    <a class="btn btn-primary" href="/">Volver al inicio <span class="arrow" aria-hidden="true">→</span></a>
+  </main>
+</Base>
+<style>
+  .nf { min-height: 70vh; display: grid; align-content: center; justify-items: start; gap: 1.5rem; padding-block: 6rem; }
+  h1 { font-size: clamp(2.6rem, 7vw, 5.5rem); max-width: 14ch; }
+  h1 em { color: var(--lacre); }
+  p:not(.label) { color: var(--ink-2); font-size: 1.15rem; }
+</style>

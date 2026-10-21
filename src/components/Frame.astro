@@ -1,0 +1,36 @@
+---
+// Minimal browser frame around a real screenshot.
+interface Props {
+  name: string;          // base filename in /shots, without size suffix
+  alt: string;
+  url: string;           // shown in the bar
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+  dark?: boolean;
+}
+const { name, alt, url, sizes = '(min-width: 960px) 60vw, 100vw', eager = false, class: cls = '', dark = false } = Astro.props;
+---
+<figure class:list={['frame', cls, { dark }]}>
+  <div class="bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="url">{url}</span></div>
+  <img
+    src={`/shots/${name}-1440.webp`}
+    srcset={`/shots/${name}-800.webp 800w, /shots/${name}-1440.webp 1440w`}
+    sizes={sizes}
+    width="1440" height="900"
+    alt={alt}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding="async"
+  />
+</figure>
+<style>
+  .frame { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 0 rgba(23,20,15,.04), 0 30px 60px -30px rgba(23,20,15,.35); }
+  .frame.dark { background: #221e19; border-color: var(--night-line); box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); }
+  .bar { display: flex; align-items: center; gap: .9rem; height: 2rem; padding-inline: .8rem; border-bottom: 1px solid var(--line); }
+  .dark .bar { border-color: var(--night-line); }
+  .dots { display: flex; gap: .35rem; }
+  .dots i { width: .5rem; height: .5rem; border-radius: 50%; border: 1px solid currentColor; opacity: .35; }
+  .url { font-family: var(--mono); font-size: .7rem; opacity: .6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+</style>

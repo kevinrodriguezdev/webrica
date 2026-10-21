@@ -1,0 +1,11 @@
+---
+interface Props { name: string; alt: string; class?: string; eager?: boolean }
+const { name, alt, class: cls = '', eager = false } = Astro.props;
+---
+<figure class:list={['phone', cls]}>
+  <img src={`/shots/${name}-600.webp`} width="600" height="1299" alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+</figure>
+<style>
+  .phone { margin: 0; padding: .45rem; background: #1b1814; border-radius: 1.6rem; box-shadow: 0 30px 60px -25px rgba(23,20,15,.55); }
+  img { width: 100%; aspect-ratio: 390 / 760; object-fit: cover; object-position: top; border-radius: 1.2rem; }
+</style>

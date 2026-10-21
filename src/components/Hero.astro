@@ -1,0 +1,65 @@
+---
+import Rubrica from './Rubrica.astro';
+import Frame from './Frame.astro';
+import Phone from './Phone.astro';
+const ticker = ['Landing pages', 'Catálogos de producto', 'Webs de marca', 'Animación al scroll', 'Diseño responsive', 'SEO técnico', 'Astro', 'Vercel'];
+---
+<section class="hero">
+  <div class="wrap">
+    <p class="label kicker" data-reveal>Estudio de diseño y desarrollo web · España</p>
+    <h1 data-reveal style="--d:.05s">
+      Webs a medida para negocios con <span class="sig">ambición.<Rubrica draw class="under" /></span>
+    </h1>
+
+    <div class="grid">
+      <div class="copy" data-reveal style="--d:.15s">
+        <p class="lead">
+          Webrica es una pequeña fábrica de webs. Diseñamos y desarrollamos <strong>landing pages</strong>, <strong>catálogos de producto</strong> y <strong>webs de marca con animaciones al scroll</strong>,
+          pieza a pieza y sin plantillas.
+        </p>
+        <p class="note">Cada proyecto sale del taller con nuestra firma: rápido, cuidado al detalle y listo para crecer.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#contacto">Cuéntanos tu proyecto <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#proyectos">Ver proyectos</a>
+        </div>
+      </div>
+
+      <div class="stage" data-reveal style="--d:.25s">
+        <Frame class="f1" name="genesis-hero" url="godstime-genesis.vercel.app" alt="Portada de la landing Génesis de God's Time: reloj cronógrafo de esfera azul sobre fondo negro" sizes="(min-width: 960px) 46vw, 92vw" eager />
+        <Phone class="p1" name="panda-movil" alt="Portada de 3DPanda en un móvil" eager />
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="track">
+      {[0, 1].map(() => <ul>{ticker.map((t) => <li>{t}</li>)}</ul>)}
+    </div>
+  </div>
+</section>
+<style>
+  .hero { padding-top: clamp(3rem, 8vw, 6.5rem); overflow: hidden; }
+  .kicker { margin-bottom: 1.75rem; }
+  h1 { font-size: clamp(2.75rem, 7.4vw, 7rem); line-height: 1; letter-spacing: -.025em; max-width: 15ch; font-weight: 350; }
+  .sig { position: relative; display: inline-block; font-style: italic; color: var(--lacre); }
+  .under { position: absolute; left: -2%; right: -4%; bottom: -.14em; width: 106%; height: .28em; }
+  .grid { display: grid; gap: 3.5rem; margin-top: clamp(2.5rem, 6vw, 4.5rem); }
+  .lead { font-size: clamp(1.15rem, 1.6vw, 1.35rem); line-height: 1.55; max-width: 34rem; color: var(--ink-2); }
+  .lead strong { color: var(--ink); font-weight: 500; }
+  .note { margin-top: 1.1rem; max-width: 32rem; color: var(--ink-3); font-size: 1rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.25rem; }
+  .stage { position: relative; padding-right: 12%; padding-bottom: 8%; }
+  .stage :global(.p1) { position: absolute; right: 0; bottom: 0; width: 26%; min-width: 7.5rem; transform: rotate(3deg); }
+  @media (min-width: 960px) {
+    .grid { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; gap: 4rem; }
+    .copy { padding-top: 1rem; }
+    .stage { margin-top: -4rem; }
+  }
+  .ticker { margin-top: clamp(4rem, 8vw, 6rem); border-block: 1px solid var(--line); overflow: hidden; padding-block: 1.1rem; }
+  .track { display: flex; width: max-content; animation: tick 38s linear infinite; }
+  .ticker ul { display: flex; list-style: none; margin: 0; padding: 0; }
+  .ticker li { font-family: var(--serif); font-style: italic; font-size: clamp(1.25rem, 2.2vw, 1.75rem); padding-inline: 1.5rem; white-space: nowrap; display: flex; align-items: center; }
+  .ticker li::after { content: '✦'; font-style: normal; font-size: .8rem; color: var(--lacre); margin-left: 1.5rem; }
+  @keyframes tick { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+</style>
