@@ -32,14 +32,21 @@ const services = [
   { name: 'Webs de marca con animación', text: 'Para marcas que necesitan impresionar: animaciones ligadas al scroll, fotografía grande y un diseño que no se confunde con otro.' },
 ];
 
-const steps = [
-  { name: 'Hablamos', text: 'Nos cuentas qué vendes y qué esperas de la web. Te enviamos una propuesta con plazo y precio.' },
-  { name: 'Diseñamos', text: 'Preparamos el diseño de las páginas clave y lo ajustamos contigo antes de programar.' },
-  { name: 'Programamos', text: 'Construimos la web, la adaptamos a móvil y te la enseñamos funcionando en un enlace privado.' },
-  { name: 'Publicamos', text: 'La ponemos en marcha con tu dominio y te enseñamos a actualizar lo que necesites.' },
+const custom = [
+  { name: 'Automatizaciones', text: 'Las tareas repetitivas se hacen solas: facturas, recordatorios, informes o el paso de datos de un formulario a tu CRM.', eg: 'Ej.: cada pedido nuevo crea la factura, avisa al cliente y actualiza tu hoja de cálculo.' },
+  { name: 'Software a medida', text: 'Paneles y aplicaciones internas para gestionar clientes, pedidos, reservas o stock, pensados para cómo trabaja tu equipo.', eg: 'Ej.: un panel con tus clientes, su estado y lo que toca hacer hoy con cada uno.' },
+  { name: 'Integraciones', text: 'Conectamos las herramientas que ya usas para que hablen entre sí: tu web, WhatsApp, pagos, Google o cualquier servicio con API.', eg: 'Ej.: las reservas de la web entran solas en tu calendario y en tu sistema de cobro.' },
+  { name: 'Asistentes con IA', text: 'Asistentes que responden dudas frecuentes, clasifican correos o resumen documentos, entrenados con la información de tu negocio.', eg: 'Ej.: un asistente que contesta a tus clientes fuera de horario y te pasa los casos importantes.' },
 ];
 
-const needs = ['Una landing page', 'Un catálogo de producto', 'Una web de marca con animación', 'Rediseñar mi web actual', 'Todavía no lo sé'];
+const steps = [
+  { name: 'Hablamos', text: 'Nos cuentas qué vendes y qué necesitas resolver. Te enviamos una propuesta con plazo y precio.' },
+  { name: 'Diseñamos', text: 'Preparamos el diseño de las páginas clave y lo ajustamos contigo antes de programar.' },
+  { name: 'Programamos', text: 'Lo construimos, lo adaptamos a móvil y te lo enseñamos funcionando en un enlace privado.' },
+  { name: 'Publicamos', text: 'Lo ponemos en marcha con tu dominio y tus herramientas, y te enseñamos a usarlo y actualizarlo.' },
+];
+
+const needs = ['Una landing page', 'Un catálogo de producto', 'Una web de marca con animación', 'Rediseñar mi web actual', 'Una automatización', 'Software o herramienta a medida', 'Todavía no lo sé'];
 
 const shot = (name: string) => ({
   src: `/shots/${name}-1440.webp`,
@@ -53,6 +60,7 @@ const shot = (name: string) => ({
       <div class="bar__links">
         <a href="#trabajos">Trabajos</a>
         <a href="#servicios">Servicios</a>
+        <a href="#a-medida">A medida</a>
         <a href="#contacto" class="bar__cta">Escríbenos</a>
       </div>
     </nav>
@@ -63,7 +71,7 @@ const shot = (name: string) => ({
         <span>a medida.</span>
       </h1>
       <div class="hero__foot">
-        <p>Diseñamos y programamos webs para marcas y negocios: landing pages, catálogos de producto y webs con animación. Cada una, desde cero.</p>
+        <p>Diseñamos y programamos webs para marcas y negocios: landing pages, catálogos de producto y webs con animación. Y cuando hace falta más, automatizaciones y software a medida. Todo desde cero.</p>
         <div class="hero__actions">
           <a href="#contacto" class="btn">Pedir presupuesto</a>
           <a href="#trabajos" class="textlink">Ver trabajos</a>
@@ -131,6 +139,31 @@ const shot = (name: string) => ({
       </div>
     </section>
 
+    <section id="a-medida" class="custom" aria-labelledby="custom-t">
+      <div class="wrap">
+        <div class="custom__head">
+          <p class="custom__kicker">Más allá de la web</p>
+          <h2 id="custom-t" class="section-title">También fabricamos las herramientas de tu negocio.</h2>
+          <p class="custom__lede">Si en tu día a día hay algo que se repite, se copia a mano o se queda en una hoja de cálculo, probablemente se pueda automatizar. Lo estudiamos contigo y lo construimos a medida.</p>
+        </div>
+        <ul class="custom__list">
+          {
+            custom.map((c) => (
+              <li>
+                <h3>{c.name}</h3>
+                <p>{c.text}</p>
+                <p class="custom__eg">{c.eg}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="custom__cta">
+          <p>¿Tienes un proceso que te quita horas cada semana?</p>
+          <a href="#contacto" class="btn">Cuéntanoslo</a>
+        </div>
+      </div>
+    </section>
+
     <section class="process wrap" aria-labelledby="process-t">
       <h2 id="process-t" class="section-title">Cómo trabajamos</h2>
       <ol class="steps">
@@ -149,7 +182,7 @@ const shot = (name: string) => ({
       <div class="wrap contact__grid">
         <div>
           <h2 id="contact-t">Cuéntanos qué necesitas.</h2>
-          <p class="contact__lede">Te respondemos con ideas y un presupuesto sin compromiso. Si lo prefieres, escríbenos directamente:</p>
+          <p class="contact__lede">Una web, una automatización o una herramienta a medida: te respondemos con ideas y un presupuesto sin compromiso. Si lo prefieres, escríbenos directamente:</p>
           <a class="contact__mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
         </div>
 
@@ -174,7 +207,7 @@ const shot = (name: string) => ({
           </label>
           <label class="full">
             <span>Tu idea</span>
-            <textarea name="message" rows="5" required placeholder="Qué vende tu negocio, qué quieres conseguir con la web y para cuándo la necesitas."></textarea>
+            <textarea name="message" rows="5" required placeholder="Qué hace tu negocio, qué quieres conseguir o automatizar y para cuándo lo necesitas."></textarea>
           </label>
           <div class="full form__foot">
             <button type="submit" class="btn">Abrir en mi correo</button>
@@ -216,7 +249,7 @@ const shot = (name: string) => ({
       return;
     }
 
-    const subject = `Nueva web: ${type}${company ? ` para ${company}` : ''}`;
+    const subject = `Nuevo proyecto: ${type}${company ? ` para ${company}` : ''}`;
     const body = [`Hola, soy ${name}${company ? ` de ${company}` : ''}.`, '', `Necesito: ${type}`, '', msg, '', `Mi email: ${email}`].join('\n');
     location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     if (status) {
@@ -430,6 +463,81 @@ const shot = (name: string) => ({
     max-width: 42ch;
   }
 
+  /* ---------- custom: ink block for tools beyond the web ---------- */
+  .custom {
+    background: var(--ink);
+    color: #fff;
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+  .custom__head {
+    max-width: 52rem;
+  }
+  .custom__kicker {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--signal);
+  }
+  .custom .section-title {
+    margin-bottom: 1.5rem;
+  }
+  .custom__lede {
+    max-width: 40rem;
+    font-size: clamp(1.1rem, 1.6vw, 1.25rem);
+    color: #c7cbe0;
+  }
+  .custom__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1rem, 2vw, 1.5rem);
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding: 0;
+    list-style: none;
+  }
+  .custom__list li {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border: 1px solid #2c3150;
+    border-radius: 16px;
+    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .custom__list li:hover {
+    border-color: var(--cobalt);
+    transform: translateY(-3px);
+  }
+  .custom__list h3 {
+    font-size: clamp(1.35rem, 2vw, 1.65rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .custom__list p {
+    margin-top: 0.8rem;
+    color: #c7cbe0;
+  }
+  .custom__list .custom__eg {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-size: 0.95rem;
+    color: #9ea6ff;
+  }
+  .custom__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+    margin-top: clamp(3rem, 5vw, 4rem);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid #2c3150;
+  }
+  .custom__cta p {
+    font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+    font-weight: 500;
+  }
+
   .process {
     padding-block: clamp(5rem, 10vw, 9rem);
   }
@@ -587,7 +695,8 @@ const shot = (name: string) => ({
     .case__phone {
       width: 100%;
     }
-    .services__list {
+    .services__list,
+    .custom__list {
       grid-template-columns: 1fr;
     }
     .steps {
